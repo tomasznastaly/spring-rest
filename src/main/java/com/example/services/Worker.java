@@ -1,4 +1,4 @@
-package com.example;
+package com.example.services;
 
 public class Worker {
     private int id;
@@ -34,4 +34,5 @@ public class Worker {
     public int getSalary() {
         return salary;
     }
+
 }
