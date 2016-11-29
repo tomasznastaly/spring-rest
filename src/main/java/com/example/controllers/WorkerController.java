@@ -11,6 +11,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class WorkerController {
@@ -28,28 +29,29 @@ public class WorkerController {
         return workerService.findAllWorkers();
     }
 
-    @RequestMapping(
-            value = "/api/workers",
-            params = {"page", "size"},
-            produces = "application/json",
-            method = RequestMethod.GET)
-    public Page getWorkersByPage(@RequestParam(value="page") int page,
-                                 @RequestParam(value="size") int size) {
-        return workerService.findAllWorkersByPage(page, size);
-    }
-
 //    @RequestMapping(
-//            value = "/api/workers/{character}",
+//            value = "/api/workers",
+//            params = {"page", "size"},
 //            produces = "application/json",
 //            method = RequestMethod.GET)
-//    public List<Worker> getWorkersOnChar(@PathVariable String character) {
-//        List<Worker> workerList = workers
-//                .stream()
-//                .filter(filteredWorker -> filteredWorker.getName().startsWith(character))
-//                .collect(Collectors.toList());
-//
-//            return workerList;
+//    public Page getWorkersByPage(@RequestParam(value="page") int page,
+//                                 @RequestParam(value="size") int size) {
+//        return workerService.findAllWorkersByPage(page, size);
 //    }
+
+    @RequestMapping(
+            value = "/api/workers/{character}",
+            produces = "application/json",
+            method = RequestMethod.GET)
+    public List<Worker> getWorkersOnChar(@PathVariable String character) {
+
+        List<Worker> workerList = workerService.findAllWorkers()
+                .stream()
+                .filter(filteredWorker -> filteredWorker.getName().startsWith(character))
+                .collect(Collectors.toList());
+
+            return workerList;
+    }
 
 //    @RequestMapping(
 //            value = "/api/workers/{id}",
