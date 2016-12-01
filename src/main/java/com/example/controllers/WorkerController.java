@@ -25,8 +25,8 @@ public class WorkerController {
             value = "/api/workers",
             produces = "application/json",
             method = RequestMethod.GET)
-    public ArrayList<Worker> getWorkers() {
-        return workerService.findAllWorkers();
+    public List<Worker> getWorkers() {
+        return workerService.findAll();
     }
 
 //    @RequestMapping(
@@ -39,19 +39,19 @@ public class WorkerController {
 //        return workerService.findAllWorkersByPage(page, size);
 //    }
 
-    @RequestMapping(
-            value = "/api/workers/{character}",
-            produces = "application/json",
-            method = RequestMethod.GET)
-    public List<Worker> getWorkersOnChar(@PathVariable String character) {
-
-        List<Worker> workerList = workerService.findAllWorkers()
-                .stream()
-                .filter(filteredWorker -> filteredWorker.getName().startsWith(character))
-                .collect(Collectors.toList());
-
-            return workerList;
-    }
+//    @RequestMapping(
+//            value = "/api/workers/{character}",
+//            produces = "application/json",
+//            method = RequestMethod.GET)
+//    public List<Worker> getWorkersOnChar(@PathVariable String character) {
+//
+//        List<Worker> workerList = workerService.findAllWorkers()
+//                .stream()
+//                .filter(filteredWorker -> filteredWorker.getName().startsWith(character))
+//                .collect(Collectors.toList());
+//
+//            return workerList;
+//    }
 
 //    @RequestMapping(
 //            value = "/api/workers/{id}",
