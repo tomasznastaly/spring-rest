@@ -8,6 +8,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.catalina.security.SecurityUtil.remove;
+
 @Service
 public class WorkerServiceImpl implements WorkerService {
 
@@ -24,5 +26,28 @@ public class WorkerServiceImpl implements WorkerService {
     public Worker findOne(Long id) {
         Worker worker = workerRepository.findOne(id);
         return worker;
+    }
+
+    public Worker create(Worker worker) {
+        if (worker.getId() != null) {
+            return null;
+        }
+
+        Worker savedWorker = workerRepository.save(worker);
+        return savedWorker;
+    }
+
+    public Worker update(Worker worker) {
+        Worker workerPersisted = findOne(worker.getId());
+        if (workerPersisted == null) {
+            return null;
+        }
+
+        Worker updatedWorker = workerRepository.save(worker);
+        return updatedWorker;
+    }
+
+    public void delete(Long id) {
+        workerRepository.delete(id);
     }
 }

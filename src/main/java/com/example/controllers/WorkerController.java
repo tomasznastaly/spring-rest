@@ -29,6 +29,30 @@ public class WorkerController {
         return workerService.findAll();
     }
 
+    @RequestMapping(
+            value = "/api/workers/{id}",
+            produces = "application/json",
+            method = RequestMethod.GET)
+    public Worker getWorker(@PathVariable Long id) {
+        return workerService.findOne(id);
+    }
+
+    @RequestMapping(
+            value = "/api/workers/",
+            produces = "application/json",
+            method = RequestMethod.POST)
+    public Worker createWorker(Worker worker) {
+        return workerService.create(worker);
+    }
+
+//    @RequestMapping(
+//            value = "/api/workers/{id}",
+//            produces = "application/json",
+//            method = RequestMethod.PUT)
+//    public Worker updateWorker(@PathVariable Worker worker) {
+//        return workerService.update(worker);
+//    }
+
 //    @RequestMapping(
 //            value = "/api/workers",
 //            params = {"page", "size"},
