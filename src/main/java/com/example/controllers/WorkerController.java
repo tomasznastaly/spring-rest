@@ -3,6 +3,8 @@ package com.example.controllers;
 import com.example.services.Worker;
 import com.example.services.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +22,16 @@ public class WorkerController {
             produces = "application/json",
             method = RequestMethod.GET)
     public List<Worker> getWorkers() {
-        return workerService.findAll();
+        return workerService.findAllWorkers();
+    }
+
+    @RequestMapping(
+            value = "/api/workersi",
+            produces = "application/json",
+            method = RequestMethod.GET)
+    public Page<Worker> getWorkersByPage(Pageable pageable) {
+        Page<Worker> workerPage = workerService.findAll(pageable);
+        return workerPage;
     }
 
     @RequestMapping(
@@ -49,8 +60,15 @@ public class WorkerController {
         return workerService.update(worker);
     }
 
+    @RequestMapping(
+            value = "/api/workers/{id}",
+            method = RequestMethod.DELETE)
+    public void deleteWorker(@PathVariable Long id) {
+        workerService.delete(id);
+    }
+
 //    @RequestMapping(
-//            value = "/api/workers/{id}",
+//            value = "/api/work ers/{id}",
 //            produces = "application/json",
 //            method = RequestMethod.GET)
 //    public Worker getWorker(@PathVariable int id) {

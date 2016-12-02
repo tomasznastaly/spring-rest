@@ -1,6 +1,8 @@
 package com.example.services;
 import com.example.repository.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -16,11 +18,15 @@ public class WorkerServiceImpl implements WorkerService {
     @Autowired
     private WorkerRepository workerRepository;
 
-    public List<Worker> findAll() {
+    public List<Worker> findAllWorkers() {
         Iterable<Worker> workers = workerRepository.findAll();
         List<Worker> tempWorkers = new ArrayList<>();
         workers.forEach(worker -> tempWorkers.add(worker));
         return tempWorkers;
+    }
+
+    public Page<Worker> findAll(Pageable pageable) {
+        return workerRepository.findAll(pageable);
     }
 
     public Worker findOne(Long id) {
