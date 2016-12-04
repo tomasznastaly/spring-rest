@@ -21,14 +21,6 @@ public class WorkerController {
             value = "/api/workers",
             produces = "application/json",
             method = RequestMethod.GET)
-    public List<Worker> getWorkers() {
-        return workerService.findAllWorkers();
-    }
-
-    @RequestMapping(
-            value = "/api/workersi",
-            produces = "application/json",
-            method = RequestMethod.GET)
     public Page<Worker> getWorkersByPage(Pageable pageable) {
         Page<Worker> workerPage = workerService.findAll(pageable);
         return workerPage;
